@@ -40,6 +40,8 @@ public class Level extends World {
 	protected static final int GAME_COMPLETED = 2;
 	protected static final int GAME_PAUSED= 3;
 	protected int state;
+	public boolean isHardcore;
+	public boolean flagRaised = false;
 	
 	//key states
 	private boolean keyLeft,keyRight,keyJump,keyFire;
@@ -133,8 +135,9 @@ public class Level extends World {
 	
 
 
-	public Level(int id) {
+	public Level(int id, boolean isHardcore) {
 		this.id = id;
+		this.isHardcore = isHardcore;
 		tmxFile = "tiled/level"+id+".tmx";
 		//World.debug = true;
 	}
@@ -959,6 +962,7 @@ public class Level extends World {
 		//stop camera and pause the loop
 		camController.followObject(null);
 		pauseWorld();
+		flagRaised = true;
 		
 		//show "level completed" dialog box
 		int stars = calculateStarsForLevel();

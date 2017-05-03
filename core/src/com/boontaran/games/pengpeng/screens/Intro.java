@@ -12,7 +12,7 @@ import com.boontaran.games.pengpeng.SPengPeng;
 
 public class Intro extends StageGame {
 	public static final int PLAY = 1;
-	
+	public static final int HARDCORE = 2;
 	
 	@Override
 	protected void create() {
@@ -61,6 +61,16 @@ public class Intro extends StageGame {
 				call(PLAY);
 			}
 			
+		});
+
+		//hardcore listener
+		playhardcoreBtn.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				SPengPeng.media.playSound("click");
+				call(HARDCORE);
+			}
+
 		});
 	}
 	

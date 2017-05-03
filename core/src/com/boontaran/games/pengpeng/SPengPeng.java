@@ -139,6 +139,10 @@ public class SPengPeng extends GdxGame {
 				if(code == Intro.PLAY) {
 					showLevelMap();
 				}
+
+				if(code == Intro.HARDCORE) {
+					startLevel(1, true);
+				}
 			}
 
 			@Override
@@ -168,7 +172,7 @@ public class SPengPeng extends GdxGame {
 			public void call(int code) {
 				//icon selected, start level with the particular id
 				if(code == LevelMap.ON_ICON_SELECTED) {
-					startLevel(map.selectedLevelId);
+					startLevel(map.selectedLevelId, false);
 				}
 				//back to intro screen
 				else if(code == LevelMap.ON_BACK) {
@@ -188,11 +192,16 @@ public class SPengPeng extends GdxGame {
 	}
 	
 	
-	private void startLevel(int levelId) {
-		Level level=null;
+	private void startLevel(final int levelId, boolean isHardcore) {
+		final Level level;
 		
 		//create "level" object based on the id
-		level = new Level(levelId);
+		if (isHardcore) {
+			level = new Level(levelId, true);
+		} else {
+			level = new Level(levelId, false);
+		}
+
 		setScreen(level);
 
 		//set bg
@@ -204,12 +213,28 @@ public class SPengPeng extends GdxGame {
 			public void call(int code) {
 				//failed, back to map
 				if(code == Level.FAILED) {
-					showLevelMap();
+					if (level.isHardcore) {
+						showIntro();
+					} else {
+						showLevelMap();
+					}
 				}
 				
 				//completed back to map also
 				else if(code == Level.COMPLETED) {
-					showLevelMap();	
+					if (level.isHardcore) {
+						if (levelId < 20 && level.flagRaised) {
+							startLevel(level.id + 1, true);
+						} else {
+							showIntro();
+						}
+					} else {
+						if (levelId < 20 && level.flagRaised) {
+							startLevel(level.id + 1, false);
+						} else {
+							showLevelMap();
+						}
+					}
 				}
 				
 			}
