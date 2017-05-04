@@ -39,11 +39,13 @@ public class AnimatedImage extends Image {
     public void act(float delta) {
         super.act(delta);
         if(whenStart>=delay){
+            this.setVisible(true);
             if(animationStart<animationTime) {
                 this.scaleBy(delta*2);
                 animationStart+=delta;
             }
         }else{
+            this.setVisible(false);
             whenStart+=delta;
         }
     }
