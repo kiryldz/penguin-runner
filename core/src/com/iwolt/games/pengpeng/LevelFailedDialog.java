@@ -27,17 +27,34 @@ public class LevelFailedDialog extends Group {
 		title.setX((getWidth() - title.getWidth())/2);
 		title.setY(getHeight() - title.getHeight() - 100);
 		
-		//button
+		//button retry
 		ImageButton okBtn = new ImageButton(
-				new TextureRegionDrawable(SPengPeng.atlas.findRegion("ok_btn")), 
-				new TextureRegionDrawable(SPengPeng.atlas.findRegion("ok_btn_down")));
+				new TextureRegionDrawable(SPengPeng.atlas.findRegion("retry_btn")),
+				new TextureRegionDrawable(SPengPeng.atlas.findRegion("retry_btn_down")));
 		
 		addActor(okBtn);
-		okBtn.setX((getWidth() - okBtn.getWidth())/2);
+		okBtn.setX(getWidth()/2- okBtn.getWidth() - 15);
 		okBtn.setY(60);
-		
+
 		//fire event when the button clicked
 		okBtn.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				fire(new MessageEvent(ON_CLOSE));
+			}
+		});
+
+		//button menu
+		ImageButton menuButton = new ImageButton(
+				new TextureRegionDrawable(SPengPeng.atlas.findRegion("menu_btn")),
+				new TextureRegionDrawable(SPengPeng.atlas.findRegion("menu_btn_down")));
+
+		addActor(menuButton);
+		menuButton.setX(getWidth()/2+15);
+		menuButton.setY(60);
+
+		//fire event when the button clicked
+		menuButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				fire(new MessageEvent(ON_CLOSE));

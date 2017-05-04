@@ -970,7 +970,7 @@ public class Level extends World {
 			SPengPeng.data.saveStar(id, stars);
 		}
 
-		LevelCompletedDialog dialog = new LevelCompletedDialog(score);
+		LevelCompletedDialog dialog = new LevelCompletedDialog(score, 2);
 		addOverlayChild(dialog);
 		centerActorXY(dialog);
 		
