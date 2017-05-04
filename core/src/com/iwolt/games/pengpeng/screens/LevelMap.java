@@ -58,13 +58,13 @@ public class LevelMap extends StageGame {
         scroll.setFlingTime(0.1f);
         scroll.setPageSpacing(25);
         int c = 1;
-        for (int l = 0; l < 4; l++) {
+        for (int l = 0; l < 2; l++) {
             Table levels = new Table().pad(50);
-            levels.defaults().pad(20, 40, 20, 40);
+            levels.defaults().pad(20);
             for (int y = 0; y < 2; y++) {
                 levels.row();
-                for (int x = 0; x < 4; x++) {
-                    levels.add(getLevelButton(l+1, y*4+x+1)).expand().fill();
+                for (int x = 0; x < 5; x++) {
+                    levels.add(getLevelButton(l+1, y*5+x+1)).expand().fill();
                 }
             }
             scroll.addPage(levels);
