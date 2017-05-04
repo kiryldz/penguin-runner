@@ -11,6 +11,7 @@ import com.boontaran.MessageEvent;
 
 public class LevelFailedDialog extends Group {
 	public static final int ON_CLOSE = 1;
+	public static final int ON_RETRY = 3;
 
 	public LevelFailedDialog() {
 		
@@ -40,7 +41,7 @@ public class LevelFailedDialog extends Group {
 		okBtn.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				fire(new MessageEvent(ON_CLOSE));
+				fire(new MessageEvent(ON_RETRY));
 			}
 		});
 

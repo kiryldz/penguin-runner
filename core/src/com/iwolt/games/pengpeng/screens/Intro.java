@@ -2,9 +2,11 @@ package com.iwolt.games.pengpeng.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.boontaran.games.StageGame;
@@ -13,6 +15,7 @@ import com.iwolt.games.pengpeng.SPengPeng;
 public class Intro extends StageGame {
 	public static final int PLAY = 1;
 	public static final int HARDCORE = 2;
+	public static final int MEGALEVEL = 3;
 	
 	@Override
 	protected void create() {
@@ -46,12 +49,19 @@ public class Intro extends StageGame {
 		addChild(playhardcoreBtn);
 
 		//megalvl button
-		ImageButton megalvlBtn = new ImageButton(
+		/*ImageButton megalvlBtn = new ImageButton(
 				new TextureRegionDrawable(SPengPeng.atlas.findRegion("megalvl_btn")),
 				new TextureRegionDrawable(SPengPeng.atlas.findRegion("megalvl_btn_down")));
 		centerActorX(megalvlBtn);
 		megalvlBtn.setY(getHeight() - title.getHeight() - 370);
 		addChild(megalvlBtn);
+		megalvlBtn.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				SPengPeng.media.playSound("click");
+				call(MEGALEVEL);
+			}
+		});*/
 
 		//btn listener
 		playBtn.addListener(new ClickListener(){

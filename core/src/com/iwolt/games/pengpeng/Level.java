@@ -56,6 +56,7 @@ public class Level extends World {
 	//callback message code
 	public static final int FAILED = 1;
 	public static final int COMPLETED = 2;
+	public static final int RETRY = 3;
 	
 	public int id; //id of level, should be unique..
 	
@@ -141,6 +142,14 @@ public class Level extends World {
 		tmxFile = "tiled/level"+id+".tmx";
 		//World.debug = true;
 	}
+
+	public Level() {
+		this.id = 0;
+		this.isHardcore = true;
+		tmxFile = "tiled/megalvl-nocoin.tmx";
+		//World.debug = true;
+	}
+
 	public void setBackgroundRegion(String regionName) {
 		levelBg = new Image(SPengPeng.atlas.findRegion(regionName));
 		addBackground(levelBg, true, false);
@@ -928,6 +937,10 @@ public class Level extends World {
 				if(message == LevelFailedDialog.ON_CLOSE) {
 					call(FAILED);
 				}
+				if(message == LevelFailedDialog.ON_RETRY) {
+					call(RETRY);
+				}
+
 			}
 		});
 	}
@@ -978,7 +991,13 @@ public class Level extends World {
 		dialog.addListener(new MessageListener(){
 			@Override
 			protected void receivedMessage(int message, Actor actor) {
-				if(message == LevelFailedDialog.ON_CLOSE) {
+				if(message == LevelCompletedDialog.ON_CLOSE) {
+					call(FAILED);
+				}
+				if(message == LevelCompletedDialog.ON_RETRY) {
+					call(RETRY);
+				}
+				if(message == LevelCompletedDialog.ON_NEXT) {
 					call(COMPLETED);
 				}
 			}

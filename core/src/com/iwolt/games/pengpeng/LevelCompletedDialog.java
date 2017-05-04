@@ -15,6 +15,8 @@ import com.iwolt.games.pengpeng.control.AnimatedImage;
 
 public class LevelCompletedDialog extends Group {
 	public static final int ON_CLOSE = 1;
+	public static final int ON_NEXT = 2;
+	public static final int ON_RETRY = 3;
 	
 	public LevelCompletedDialog(int score, int stars) {
 		//create bg
@@ -109,7 +111,7 @@ public class LevelCompletedDialog extends Group {
 		retryBtn.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				fire(new MessageEvent(ON_CLOSE));
+				fire(new MessageEvent(ON_RETRY));
 			}
 		});
 
@@ -126,7 +128,7 @@ public class LevelCompletedDialog extends Group {
 		okBtn.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				fire(new MessageEvent(ON_CLOSE));
+				fire(new MessageEvent(ON_NEXT));
 			}
 		});
 

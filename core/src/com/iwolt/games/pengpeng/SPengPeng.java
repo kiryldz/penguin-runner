@@ -37,6 +37,7 @@ public class SPengPeng extends GdxGame {
 	//persistent data handling
 	public static Data data;
 	public static Media media;
+	public static int TOTAL_LEVELS = 20;
 	
 	//game events
 	
@@ -142,6 +143,10 @@ public class SPengPeng extends GdxGame {
 				if(code == Intro.HARDCORE) {
 					startLevel(1, true);
 				}
+
+				if(code == Intro.MEGALEVEL) {
+					startMegaLevel();
+				}
 			}
 
 			@Override
@@ -189,7 +194,46 @@ public class SPengPeng extends GdxGame {
         SPengPeng.media.playMusic("intro");
 
 	}
-	
+
+	private void startMegaLevel() {
+		final Level level = new Level();
+
+		setScreen(level);
+
+		//set bg
+		level.setBackgroundRegion("level_bg");
+
+		//the level callback
+		level.setCallback(new StageGame.Callback() {
+			@Override
+			public void call(int code) {
+				//failed, back to map
+				if(code == Level.FAILED) {
+					showIntro();
+				}
+
+				// for retry
+				if(code == Level.RETRY) {
+					startMegaLevel();
+				}
+
+				//completed back to map also
+				else if(code == Level.COMPLETED) {
+					showIntro();
+				}
+
+			}
+
+			@Override
+			public void call(int code, int value) {
+
+			}
+		});
+
+
+		SPengPeng.media.stopMusic("intro");
+		SPengPeng.media.playMusic("level");
+	}
 	
 	private void startLevel(final int levelId, boolean isHardcore) {
 		final Level level;
@@ -218,17 +262,26 @@ public class SPengPeng extends GdxGame {
 						showLevelMap();
 					}
 				}
+
+				// for retry
+				if(code == Level.RETRY) {
+					if (level.isHardcore) {
+						startLevel(level.id, true);
+					} else {
+						startLevel(level.id, false);
+					}
+				}
 				
 				//completed back to map also
 				else if(code == Level.COMPLETED) {
 					if (level.isHardcore) {
-						if (levelId < 20 && level.flagRaised) {
+						if (levelId < TOTAL_LEVELS && level.flagRaised) {
 							startLevel(level.id + 1, true);
 						} else {
 							showIntro();
 						}
 					} else {
-						if (levelId < 20 && level.flagRaised) {
+						if (levelId < TOTAL_LEVELS && level.flagRaised) {
 							startLevel(level.id + 1, false);
 						} else {
 							showLevelMap();
