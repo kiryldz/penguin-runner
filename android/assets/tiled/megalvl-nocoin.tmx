@@ -618,7 +618,7 @@
  <objectgroup name="entity">
   <object id="2" name="enemy1" x="1472" y="768" width="64" height="64"/>
   <object id="3" name="enemy2" x="1920" y="768" width="64" height="64"/>
-  <object id="8" name="mario" x="128" y="320" width="64" height="64"/>
+  <object id="8" name="pengpeng" x="128" y="320" width="64" height="64"/>
   <object id="16" name="flag" x="4416" y="9472" width="64" height="384"/>
   <object id="659" name="enemy1" x="4160" y="768" width="64" height="64"/>
   <object id="658" name="enemy1" x="3200" y="768" width="64" height="64"/>
