@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.boontaran.games.pengpeng"
+        applicationId "com.iwolt.games.pengpeng"
         minSdkVersion 8
         targetSdkVersion 23
     }
