@@ -35,7 +35,7 @@ public class LevelMap extends StageGame {
         super.drawStage();
         if (!set){
             curLevelProgress = 1+SPengPeng.data.getLevelProgress();
-            if(curLevelProgress>=10) {
+            if(curLevelProgress>=11) {
                 float w = scroll.getWidth();
                 scroll.setScrollX(w + 50);
             }
