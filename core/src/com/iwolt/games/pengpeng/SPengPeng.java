@@ -169,7 +169,7 @@ public class SPengPeng extends GdxGame {
 		map = new LevelMap();
 
 		setScreen(map);
-		
+
 		//the callback
 		map.setCallback(new StageGame.Callback() {
 			@Override

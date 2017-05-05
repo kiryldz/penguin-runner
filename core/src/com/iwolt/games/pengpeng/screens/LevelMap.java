@@ -17,16 +17,31 @@ import com.iwolt.games.pengpeng.SPengPeng;
 
 public class LevelMap extends StageGame {
 
-    PagedScrollPane scroll;
+    public PagedScrollPane scroll;
 
     public static final int ON_ICON_SELECTED = 1;
 	public static final int ON_BACK = 2;
 	
 	public int selectedLevelId;
 
+    boolean set=false;
+
     //total score
     int totalScore=0;
     int curLevelProgress;
+
+    @Override
+    protected void drawStage() {
+        super.drawStage();
+        if (!set){
+            curLevelProgress = 1+SPengPeng.data.getLevelProgress();
+            if(curLevelProgress>=10) {
+                float w = scroll.getWidth();
+                scroll.setScrollX(w + 50);
+            }
+            set=true;
+        }
+    }
 
     private Table buildBackgroundLayer () {
         Table layer = new Table();
@@ -57,6 +72,7 @@ public class LevelMap extends StageGame {
         scroll = new PagedScrollPane();
         scroll.setFlingTime(0.1f);
         scroll.setPageSpacing(25);
+
         int c = 1;
         for (int l = 0; l < 2; l++) {
             Table levels = new Table().pad(50);
@@ -78,7 +94,6 @@ public class LevelMap extends StageGame {
             totalScore += SPengPeng.data.getScore(i);
         }
 
-		
 		//displaying total score
 		LabelStyle style = new LabelStyle();
 		style.font = SPengPeng.font1;
@@ -87,6 +102,7 @@ public class LevelMap extends StageGame {
 		addChild(label);
 		label.setY(10);
 		centerActorX(label);
+
 	}
 
    /* public LevelButton getLevelButton(int level) {
@@ -144,7 +160,7 @@ public class LevelMap extends StageGame {
 
         int curLevelProgress = 1+SPengPeng.data.getLevelProgress();
 
-        if(curLevelProgress<(world-1)*8+level){
+        if(curLevelProgress<(world-1)*10+level){
             levelName = "";
         }else {
             levelName = String.valueOf(world) + " - " + String.valueOf(level);
@@ -159,7 +175,7 @@ public class LevelMap extends StageGame {
         label.setAlignment(Align.center);
         //label.setAlignment(Align.center);
 
-        if(curLevelProgress<(world-1)*8+level){
+        if(curLevelProgress<(world-1)*10+level){
             button.stack(new Image(SPengPeng.atlas.findRegion("brick_lock")), label).expand().fill();
         }else{
             button.stack(new Image(SPengPeng.atlas.findRegion("brick")), label).expand().fill();
@@ -168,9 +184,9 @@ public class LevelMap extends StageGame {
         //skinLibgdx.add("star-filled", skinLibgdx.newDrawable("white", Color.YELLOW), Drawable.class);
         //skinLibgdx.add("star-unfilled", skinLibgdx.newDrawable("white", Color.GRAY), Drawable.class);
 
-        int stars = SPengPeng.data.getStar((world-1)*8+level);
+        int stars = SPengPeng.data.getStar((world-1)*10+level);
 
-        /*if (curLevelProgress<(world-1)*8+level){
+        /*if (curLevelProgress<(world-1)*10+level){
             stars = 0;
         }else {
             Random rand = new Random();
@@ -228,7 +244,7 @@ public class LevelMap extends StageGame {
 
 		@Override
 		public void clicked(InputEvent event, float x, float y) {
-			//LevelButton icon = (LevelButton)event.getTarget();
+
             Label icon = (Label)event.getTarget();
 
             String level =  icon.getText().toString();
@@ -237,7 +253,7 @@ public class LevelMap extends StageGame {
 
             String[] bla=level.split("-");
 
-            int part1=(Integer.valueOf(bla[0].trim())-1)*8;
+            int part1=(Integer.valueOf(bla[0].trim())-1)*10;
             int part2=Integer.valueOf(bla[1].trim());
 
             selectedLevelId=part1+part2;
